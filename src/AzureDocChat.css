@@ -1,372 +1,432 @@
 /* Root variables for consistent colors and styles */
 :root {
-    /* Colors */
-    --primary-color: #0078d4;
-    --primary-hover: #005a9e;
-    --text-color: #333;
-    --light-gray: #f5f5f5;
-    --border-color: #e0e0e0;
-    --success-bg: #dff6dd;
-    --success-color: #107c10;
-    --error-bg: #fde7e9;
-    --error-color: #d13438;
-    
-    /* Layout */
-    --border-radius: 8px;
-    --box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
-    
-    /* Spacing */
-    --spacing-sm: 10px;
-    --spacing-md: 15px;
-    --spacing-lg: 20px;
-    --spacing-xl: 30px;
-  }
+  /* Colors */
+  --primary-color: #0078d4;
+  --primary-hover: #005a9e;
+  --secondary-color: #2b88d8;
+  --accent-color: #ffb900;
+  --text-color: #333;
+  --light-gray: #f5f5f5;
+  --border-color: #e0e0e0;
+  --success-bg: #dff6dd;
+  --success-color: #107c10;
+  --error-bg: #fde7e9;
+  --error-color: #d13438;
+  --form-bg: #f9f9f9;
   
-  /* Base styles */
-  .azure-doc-chat-container {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: var(--spacing-lg);
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  }
+  /* Layout */
+  --border-radius: 8px;
+  --box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
   
-  /* Header styles */
+  /* Spacing */
+  --spacing-sm: 10px;
+  --spacing-md: 15px;
+  --spacing-lg: 20px;
+  --spacing-xl: 30px;
+}
+
+/* Base styles */
+.azure-doc-chat-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: var(--spacing-lg);
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* Header styles */
+.app-header {
+  display: flex;
+  align-items: center;
+  margin-bottom: var(--spacing-xl);
+  padding-bottom: var(--spacing-md);
+  border-bottom: 1px solid var(--border-color);
+}
+
+.app-logo {
+  width: 80px;
+  height: auto;
+  margin-right: var(--spacing-lg);
+}
+
+.header-text {
+  flex-grow: 1;
+}
+
+.app-title {
+  margin: 0;
+  font-size: 2.2rem;
+  color: var(--primary-color);
+  font-weight: 600;
+}
+
+.app-subtitle {
+  margin: 5px 0 0;
+  font-size: 1.1rem;
+  color: #f7f6f6;
+  font-style: italic;
+}
+
+/* Instructions section styles */
+.instructions-section {
+  background-color: var(--light-gray);
+  padding: var(--spacing-lg);
+  border-radius: var(--border-radius);
+  margin-bottom: var(--spacing-xl);
+  box-shadow: var(--box-shadow);
+}
+
+.instructions-section h2 {
+  margin-top: 0;
+  color: var(--text-color);
+  font-size: 1.5rem;
+}
+
+/* Client Information Form styles */
+.client-info-section {
+  background-color: var(--form-bg);
+  padding: var(--spacing-lg);
+  border-radius: var(--border-radius);
+  margin-bottom: var(--spacing-xl);
+  box-shadow: var(--box-shadow);
+  border-left: 4px solid var(--accent-color);
+}
+
+.client-info-section h3 {
+  margin-top: 0;
+  color: var(--text-color);
+  font-size: 1.3rem;
+}
+
+.client-info-form {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: var(--spacing-md);
+}
+
+.form-group {
+  margin-bottom: var(--spacing-md);
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: 500;
+}
+
+.form-group input,
+.form-group select {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid var(--border-color);
+  border-radius: 4px;
+  font-size: 1rem;
+}
+
+.submit-info-button {
+  background-color: var(--accent-color);
+  color: var(--text-color);
+  border: none;
+  border-radius: 4px;
+  padding: var(--spacing-sm) var(--spacing-lg);
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  font-weight: 500;
+  grid-column: 1 / -1;
+  margin-top: var(--spacing-sm);
+}
+
+.submit-info-button:hover {
+  background-color: #e6a800;
+}
+
+/* Action buttons styles */
+.action-buttons {
+  display: flex;
+  justify-content: center;
+  gap: var(--spacing-lg);
+  padding: var(--spacing-lg);
+  margin-bottom: var(--spacing-lg);
+  flex-wrap: wrap; /* Allow buttons to wrap on small screens */
+}
+
+.file-upload-container {
+  position: relative;
+}
+
+/* Button styles */
+.upload-button, 
+.send-emails-button,
+.client-info-button {
+  background-color: var(--primary-color);
+  color: white;
+  border: none;
+  border-radius: 4px;
+  padding: var(--spacing-sm) var(--spacing-lg);
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  min-width: 140px; /* Ensure minimum width for consistency */
+}
+
+.client-info-button {
+  background-color: var(--secondary-color);
+}
+
+.upload-button:hover, 
+.send-emails-button:hover {
+  background-color: var(--primary-hover);
+}
+
+.client-info-button:hover {
+  background-color: #206eb4;
+}
+
+/* Disabled button states */
+.upload-button:disabled,
+.send-emails-button:disabled,
+.client-info-button:disabled {
+  background-color: #999;
+  cursor: not-allowed;
+}
+
+/* Upload status indicators */
+.upload-status {
+  position: absolute;
+  left: 0;
+  top: 45px;
+  padding: 8px 12px;
+  border-radius: 4px;
+  font-size: 0.9rem;
+  white-space: nowrap;
+  z-index: 1; /* Ensure message appears above other elements */
+}
+
+.upload-status.success {
+  background-color: var(--success-bg);
+  color: var(--success-color);
+}
+
+.upload-status.error {
+  background-color: var(--error-bg);
+  color: var(--error-color);
+}
+
+/* Uploaded files list styles */
+.uploaded-files-container {
+  background-color: var(--light-gray);
+  border-radius: var(--border-radius);
+  padding: var(--spacing-md);
+  margin-bottom: var(--spacing-md);
+}
+
+.uploaded-files-container h3 {
+  margin-top: 0;
+  margin-bottom: var(--spacing-sm);
+  font-size: 1rem;
+  color: var(--text-color);
+}
+
+.uploaded-files-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.uploaded-file-item {
+  display: flex;
+  justify-content: space-between;
+  padding: var(--spacing-sm);
+  border-bottom: 1px solid var(--border-color);
+}
+
+.uploaded-file-item:last-child {
+  border-bottom: none;
+}
+
+.file-name {
+  font-weight: 500;
+  color: var(--primary-color);
+}
+
+.file-timestamp {
+  font-size: 0.8rem;
+  color: #666;
+}
+
+/* Chat section styles */
+.chat-section {
+  background-color: white;
+  border-radius: var(--border-radius);
+  overflow: hidden;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.chat-messages {
+  height: 400px;
+  overflow-y: auto;
+  padding: var(--spacing-lg);
+  background-color: var(--light-gray);
+}
+
+/* Message styles */
+.message {
+  max-width: 70%;
+  margin-bottom: var(--spacing-md);
+  padding: 12px 16px;
+  border-radius: var(--border-radius);
+  word-wrap: break-word;
+  box-shadow: var(--box-shadow);
+  animation: fadeIn 0.3s;
+}
+
+.user-message {
+  background-color: #e5f1fd;
+  margin-left: auto;
+  border-bottom-right-radius: 0;
+  color: var(--primary-color);
+}
+
+.ai-message {
+  background-color: #f0f0f0;
+  margin-right: auto;
+  border-bottom-left-radius: 0;
+  color: var(--text-color);
+}
+
+/* Message content formatting */
+.message-content {
+  line-height: 1.5;
+  white-space: pre-wrap;
+}
+
+.message-content pre {
+  background-color: #f0f0f0;
+  padding: 10px;
+  border-radius: 4px;
+  overflow-x: auto;
+}
+
+.message-content a {
+  color: var(--primary-color);
+  text-decoration: none;
+}
+
+.message-content a:hover {
+  text-decoration: underline;
+}
+
+/* Chat input form styles */
+.chat-input-form {
+  display: flex;
+  padding: var(--spacing-md);
+  border-top: 1px solid var(--border-color);
+}
+
+.chat-input-form input {
+  flex-grow: 1;
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 1rem;
+  margin-right: var(--spacing-sm);
+}
+
+.chat-input-form button {
+  background-color: var(--primary-color);
+  color: white;
+  border: none;
+  border-radius: 4px;
+  padding: 0 var(--spacing-lg);
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  white-space: nowrap; /* Prevent text wrapping */
+}
+
+.chat-input-form button:hover {
+  background-color: var(--primary-hover);
+}
+
+.chat-input-form button:disabled {
+  background-color: #cccccc;
+  cursor: not-allowed;
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
   .app-header {
-    display: flex;
-    align-items: center;
-    margin-bottom: var(--spacing-xl);
-    padding-bottom: var(--spacing-md);
-    border-bottom: 1px solid var(--border-color);
+    flex-direction: column;
+    text-align: center;
   }
   
   .app-logo {
-    width: 80px;
-    height: auto;
-    margin-right: var(--spacing-lg);
-  }
-  
-  .header-text {
-    flex-grow: 1;
-  }
-  
-  .app-title {
-    margin: 0;
-    font-size: 2.2rem;
-    color: var(--primary-color);
-    font-weight: 600;
-  }
-  
-  .app-subtitle {
-    margin: 5px 0 0;
-    font-size: 1.1rem;
-    color: #eeeeee;
-    font-style: italic;
-  }
-  
-  /* Instructions section styles */
-  .instructions-section {
-    background-color: var(--light-gray);
-    padding: var(--spacing-lg);
-    border-radius: var(--border-radius);
-    margin-bottom: var(--spacing-xl);
-    box-shadow: var(--box-shadow);
-  }
-  
-  .instructions-section h2 {
-    margin-top: 0;
-    color: var(--text-color);
-    font-size: 1.5rem;
-  }
-  
-  /* Action buttons styles */
-  .action-buttons {
-    display: flex;
-    justify-content: center;
-    gap: var(--spacing-lg);
-    padding: var(--spacing-lg);
-    margin-bottom: var(--spacing-lg);
-    flex-wrap: wrap; /* Allow buttons to wrap on small screens */
-  }
-  
-  .file-upload-container {
-    position: relative;
-  }
-  
-  /* Button styles */
-  .upload-button, 
-  .send-emails-button {
-    background-color: var(--primary-color);
-    color: white;
-    border: none;
-    border-radius: 4px;
-    padding: var(--spacing-sm) var(--spacing-lg);
-    font-size: 1rem;
-    cursor: pointer;
-    transition: background-color 0.3s;
-    min-width: 140px; /* Ensure minimum width for consistency */
-  }
-  
-  .upload-button:hover, 
-  .send-emails-button:hover {
-    background-color: var(--primary-hover);
-  }
-  
-  /* Disabled button states */
-  .upload-button:disabled,
-  .send-emails-button:disabled {
-    background-color: #999;
-    cursor: not-allowed;
-  }
-  
-  /* Upload status indicators */
-  .upload-status {
-    position: absolute;
-    left: 0;
-    top: 45px;
-    padding: 8px 12px;
-    border-radius: 4px;
-    font-size: 0.9rem;
-    white-space: nowrap;
-    z-index: 1; /* Ensure message appears above other elements */
-  }
-  
-  .upload-status.success {
-    background-color: var(--success-bg);
-    color: var(--success-color);
-  }
-  
-  .upload-status.error {
-    background-color: var(--error-bg);
-    color: var(--error-color);
-  }
-  
-  /* Progress bar styles */
-  .progress-container {
-    width: 100%;
-    height: 8px;
-    background-color: var(--light-gray);
-    border-radius: 4px;
-    margin-top: var(--spacing-sm);
-    overflow: hidden;
-  }
-  
-  .progress-bar {
-    height: 100%;
-    background-color: var(--primary-color);
-    transition: width 0.3s ease;
-  }
-  
-  /* Uploaded files list styles */
-  .uploaded-files-container {
-    background-color: var(--light-gray);
-    border-radius: var(--border-radius);
-    padding: var(--spacing-md);
-    margin-bottom: var(--spacing-md);
-  }
-  
-  .uploaded-files-container h3 {
-    margin-top: 0;
+    margin-right: 0;
     margin-bottom: var(--spacing-sm);
-    font-size: 1rem;
-    color: var(--text-color);
   }
   
-  .uploaded-files-list {
-    list-style: none;
-    padding: 0;
-    margin: 0;
+  .action-buttons {
+    flex-direction: column;
+    align-items: center;
+    gap: var(--spacing-sm);
   }
   
-  .uploaded-file-item {
-    display: flex;
-    justify-content: space-between;
-    padding: var(--spacing-sm);
-    border-bottom: 1px solid var(--border-color);
-  }
-  
-  .uploaded-file-item:last-child {
-    border-bottom: none;
-  }
-  
-  .file-name {
-    font-weight: 500;
-    color: var(--primary-color);
-  }
-  
-  .file-timestamp {
-    font-size: 0.8rem;
-    color: #666;
-  }
-  
-  /* Chat section styles */
-  .chat-section {
-    background-color: white;
-    border-radius: var(--border-radius);
-    overflow: hidden;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  }
-  
-  .chat-messages {
-    height: 400px;
-    overflow-y: auto;
-    padding: var(--spacing-lg);
-    background-color: var(--light-gray);
-  }
-  
-  /* Message styles */
   .message {
-    max-width: 70%;
-    margin-bottom: var(--spacing-md);
-    padding: 12px 16px;
-    border-radius: var(--border-radius);
-    word-wrap: break-word;
-    box-shadow: var(--box-shadow);
-    animation: fadeIn 0.3s;
+    max-width: 85%;
   }
   
-  .user-message {
-    background-color: #e5f1fd;
-    margin-left: auto;
-    border-bottom-right-radius: 0;
-    color: var(--primary-color);
-  }
-  
-  .ai-message {
-    background-color: #f0f0f0;
-    margin-right: auto;
-    border-bottom-left-radius: 0;
-    color: var(--text-color);
-  }
-  
-  /* Message content formatting */
-  .message-content {
-    line-height: 1.5;
-    white-space: pre-wrap;
-  }
-  
-  .message-content pre {
-    background-color: #f0f0f0;
-    padding: 10px;
-    border-radius: 4px;
-    overflow-x: auto;
-  }
-  
-  .message-content a {
-    color: var(--primary-color);
-    text-decoration: none;
-  }
-  
-  .message-content a:hover {
-    text-decoration: underline;
-  }
-  
-  /* Chat input form styles */
   .chat-input-form {
-    display: flex;
-    padding: var(--spacing-md);
-    border-top: 1px solid var(--border-color);
+    flex-direction: column;
+    gap: var(--spacing-sm);
   }
   
   .chat-input-form input {
-    flex-grow: 1;
-    padding: 12px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
+    margin-right: 0;
+    margin-bottom: var(--spacing-sm);
+  }
+  
+  .upload-status {
+    position: static; /* Changed from absolute to static to avoid overlapping */
+    display: block;
+    margin-top: var(--spacing-sm);
+    text-align: center;
+  }
+  
+  .uploaded-file-item {
+    flex-direction: column;
+  }
+  
+  .file-timestamp {
+    margin-top: 4px;
+  }
+
+  .client-info-form {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Extra adjustments for very small screens */
+@media (max-width: 480px) {
+  .app-title {
+    font-size: 1.8rem;
+  }
+  
+  .app-subtitle {
     font-size: 1rem;
-    margin-right: var(--spacing-sm);
   }
   
-  .chat-input-form button {
-    background-color: var(--primary-color);
-    color: white;
-    border: none;
-    border-radius: 4px;
-    padding: 0 var(--spacing-lg);
-    font-size: 1rem;
-    cursor: pointer;
-    transition: background-color 0.3s;
-    white-space: nowrap; /* Prevent text wrapping */
+  .message {
+    max-width: 95%;
   }
   
-  .chat-input-form button:hover {
-    background-color: var(--primary-hover);
+  .chat-messages {
+    height: 350px; /* Reduced height for small screens */
+    padding: var(--spacing-md);
   }
-  
-  .chat-input-form button:disabled {
-    background-color: #cccccc;
-    cursor: not-allowed;
-  }
-  
-  /* Animations */
-  @keyframes fadeIn {
-    from { opacity: 0; transform: translateY(10px); }
-    to { opacity: 1; transform: translateY(0); }
-  }
-  
-  /* Responsive design */
-  @media (max-width: 768px) {
-    .app-header {
-      flex-direction: column;
-      text-align: center;
-    }
-    
-    .app-logo {
-      margin-right: 0;
-      margin-bottom: var(--spacing-sm);
-    }
-    
-    .action-buttons {
-      flex-direction: column;
-      align-items: center;
-      gap: var(--spacing-sm);
-    }
-    
-    .message {
-      max-width: 85%;
-    }
-    
-    .chat-input-form {
-      flex-direction: column;
-      gap: var(--spacing-sm);
-    }
-    
-    .chat-input-form input {
-      margin-right: 0;
-      margin-bottom: var(--spacing-sm);
-    }
-    
-    .upload-status {
-      position: static; /* Changed from absolute to static to avoid overlapping */
-      display: block;
-      margin-top: var(--spacing-sm);
-      text-align: center;
-    }
-    
-    .uploaded-file-item {
-      flex-direction: column;
-    }
-    
-    .file-timestamp {
-      margin-top: 4px;
-    }
-  }
-  
-  /* Extra adjustments for very small screens */
-  @media (max-width: 480px) {
-    .app-title {
-      font-size: 1.8rem;
-    }
-    
-    .app-subtitle {
-      font-size: 1rem;
-    }
-    
-    .message {
-      max-width: 95%;
-    }
-    
-    .chat-messages {
-      height: 350px; /* Reduced height for small screens */
-      padding: var(--spacing-md);
-    }
-  }
+}
