@@ -17,7 +17,6 @@ const AzureDocChat = () => {
     jobInterests: '',
     skillLevel: '',
   });
-  const [showClientForm, setShowClientForm] = useState(false);
   const fileInputRef = useRef(null);
   const messagesEndRef = useRef(null);
 
@@ -56,88 +55,9 @@ const AzureDocChat = () => {
     9. When a client's information is shared in conversation (rather than via the form),
        summarize and confirm the key details before providing recommendations.
     
-    If you detect that the coach is sharing information about a client without using the form,
+    If you detect that the coach is sharing information about a client,
     confirm the details you've understood and check if you need additional information.`
   };
-
-  useEffect(() => {
-    const style = document.createElement('style');
-    style.textContent = `
-      .client-info-indicator {
-        display: flex;
-        align-items: center;
-        background-color: #e3f2fd;
-        padding: 8px 12px;
-        border-radius: 4px;
-        margin-bottom: 12px;
-        cursor: pointer;
-        border-left: 4px solid #2196f3;
-        transition: background-color 0.2s;
-      }
-      
-      .client-info-indicator:hover {
-        background-color: #bbdefb;
-      }
-      
-      .indicator-icon {
-        margin-right: 8px;
-        font-size: 1.2rem;
-      }
-      
-      .indicator-text {
-        font-size: 0.9rem;
-        color: #333;
-      }
-      
-      .info-extracted-notice {
-        background-color: #e8f5e9;
-        padding: 8px 12px;
-        border-radius: 4px;
-        margin-bottom: 16px;
-        font-size: 0.9rem;
-        color: #2e7d32;
-        border-left: 3px solid #43a047;
-      }
-      
-      .field-extracted {
-        position: relative;
-      }
-      
-      .extracted-indicator {
-        position: absolute;
-        bottom: -5px;
-        right: 0;
-        font-size: 0.75rem;
-        color: #2196f3;
-        font-style: italic;
-      }
-      
-      .form-actions {
-        display: flex;
-        gap: 10px;
-        margin-top: 10px;
-      }
-      
-      .cancel-button {
-        background-color: #f5f5f5;
-        color: #555;
-        border: 1px solid #ddd;
-        border-radius: 4px;
-        padding: 8px 16px;
-        cursor: pointer;
-        transition: all 0.2s;
-      }
-      
-      .cancel-button:hover {
-        background-color: #e0e0e0;
-      }
-    `;
-    document.head.appendChild(style);
-    
-    return () => {
-      document.head.removeChild(style);
-    };
-  }, []);
 
   useEffect(() => {
     if (messagesEndRef.current) {
@@ -437,40 +357,6 @@ const AzureDocChat = () => {
     };
   };
 
-  const handleClientInfoChange = (e) => {
-    const { name, value } = e.target;
-    setClientInfo(prev => ({
-      ...prev,
-      [name]: value
-    }));
-  };
-
-  const handleClientInfoSubmit = (e) => {
-    e.preventDefault();
-    setShowClientForm(false);
-    
-    setMessages(prev => [...prev, {
-      role: 'assistant',
-      content: `Thank you for providing information about your client. I can now better personalize training plans for a person ${clientInfo.name ? `named ${clientInfo.name} ` : ''}with ${clientInfo.disability}, aged ${clientInfo.age}${clientInfo.medicalConditions ? `, with ${clientInfo.medicalConditions}` : ''}${clientInfo.jobInterests ? `, interested in ${clientInfo.jobInterests}` : ''}. How can I specifically help you today?`
-    }]);
-  };
-
-  const renderClientInfoIndicator = () => {
-    if (!showClientForm && 
-       (clientInfo.disability || clientInfo.name || clientInfo.age) && 
-       (!clientInfo.disability || !clientInfo.age || !clientInfo.jobInterests)) {
-      return (
-        <div className="client-info-indicator" onClick={() => setShowClientForm(true)}>
-          <div className="indicator-icon">ℹ️</div>
-          <div className="indicator-text">
-            Client information detected. Click to view and edit.
-          </div>
-        </div>
-      );
-    }
-    return null;
-  };
-
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!currentMessage.trim()) return;
@@ -496,10 +382,6 @@ const AzureDocChat = () => {
             
             return updatedInfo;
           });
-          
-          if (!showClientForm && (extractedInfo.disability || (extractedInfo.name && extractedInfo.age))) {
-            setShowClientForm(true);
-          }
           
           break;
         }
@@ -538,7 +420,7 @@ const AzureDocChat = () => {
                                currentMessage.toLowerCase().includes('disability') ||
                                currentMessage.toLowerCase().includes('condition');
                                
-        if (mightBeAboutClient && !showClientForm) {
+        if (mightBeAboutClient) {
           messageHistory.push({
             role: 'system',
             content: `The user appears to be discussing a specific client, but no client information has been provided yet.
@@ -688,12 +570,8 @@ const AzureDocChat = () => {
       
       setMessages(prev => [...prev, {
         role: 'assistant',
-        content: `I've received the document "${file.name}". I'll analyze it and create accessible versions. Could you provide information about the client for whom you're preparing this material? If you've already entered this information, you can ask directly about the document.`
+        content: `I've received the document "${file.name}". I'll analyze it and create accessible versions. Just a heads-up—your speech version and Braille version will be ready in your email shortly. Let me know if you need anything else! Could you provide information about the client for whom you're preparing this material? For example, what type of disability do they have, their age, and what job interests they might have?`
       }]);
-      
-      if (!clientInfo.disability && !showClientForm) {
-        setShowClientForm(true);
-      }
       
       const messageHistory = [
         initialSystemMessage,
@@ -730,147 +608,6 @@ const AzureDocChat = () => {
     fileInputRef.current.value = '';
   };
 
-  const handleSendEmails = async () => {
-    if (messages.length === 0) {
-      setMessages([{
-        role: 'assistant',
-        content: 'There is no chat content to send by email.'
-      }]);
-      return;
-    }
-    
-    setLoading(true);
-    
-    try {
-      const emailData = {
-        conversation: messages,
-        attachments: uploadedFiles,
-        clientInfo: clientInfo,
-        timestamp: new Date().toISOString()
-      };
-      
-      // Simulate API call delay
-      await new Promise(resolve => setTimeout(resolve, 1500));
-      
-      setMessages(prev => [...prev, {
-        role: 'assistant',
-        content: 'A summary of this conversation has been sent by email. (Note: This is a simulated function. To fully implement it, you would need to connect to your backend service.)'
-      }]);
-    } catch (error) {
-      console.error('Error sending email:', error);
-      setMessages(prev => [...prev, {
-        role: 'assistant',
-        content: 'There was an error trying to send the email.'
-      }]);
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  const renderEnhancedClientForm = () => {
-    const extractedFields = {};
-    Object.keys(clientInfo).forEach(key => {
-      if (clientInfo[key] && clientInfo[key] !== '') {
-        extractedFields[key] = true;
-      }
-    });
-    
-    return (
-      <section className="client-info-section">
-        <h3>Client Information</h3>
-        {(extractedFields.name || extractedFields.disability || extractedFields.age) && (
-          <div className="info-extracted-notice">
-            Some information was automatically extracted from your conversation
-          </div>
-        )}
-        <form onSubmit={handleClientInfoSubmit} className="client-info-form">
-          <div className={`form-group ${extractedFields.name ? 'field-extracted' : ''}`}>
-            <label htmlFor="name">Client Name:</label>
-            <input
-              type="text"
-              id="name"
-              name="name"
-              value={clientInfo.name || ''}
-              onChange={handleClientInfoChange}
-              placeholder="Client's name"
-            />
-            {extractedFields.name && <div className="extracted-indicator">Auto-extracted</div>}
-          </div>
-          <div className={`form-group ${extractedFields.disability ? 'field-extracted' : ''}`}>
-            <label htmlFor="disability">Type of Disability:</label>
-            <input
-              type="text"
-              id="disability"
-              name="disability"
-              value={clientInfo.disability || ''}
-              onChange={handleClientInfoChange}
-              placeholder="E.g. Visual, hearing, motor, intellectual..."
-              required
-            />
-            {extractedFields.disability && <div className="extracted-indicator">Auto-extracted</div>}
-          </div>
-          <div className={`form-group ${extractedFields.age ? 'field-extracted' : ''}`}>
-            <label htmlFor="age">Age:</label>
-            <input
-              type="text"
-              id="age"
-              name="age"
-              value={clientInfo.age || ''}
-              onChange={handleClientInfoChange}
-              placeholder="Client's age"
-              required
-            />
-            {extractedFields.age && <div className="extracted-indicator">Auto-extracted</div>}
-          </div>
-          <div className={`form-group ${extractedFields.medicalConditions ? 'field-extracted' : ''}`}>
-            <label htmlFor="medicalConditions">Relevant Medical Conditions:</label>
-            <input
-              type="text"
-              id="medicalConditions"
-              name="medicalConditions"
-              value={clientInfo.medicalConditions || ''}
-              onChange={handleClientInfoChange}
-              placeholder="Medical conditions relevant to training (optional)"
-            />
-            {extractedFields.medicalConditions && <div className="extracted-indicator">Auto-extracted</div>}
-          </div>
-          <div className={`form-group ${extractedFields.jobInterests ? 'field-extracted' : ''}`}>
-            <label htmlFor="jobInterests">Job Interests:</label>
-            <input
-              type="text"
-              id="jobInterests"
-              name="jobInterests"
-              value={clientInfo.jobInterests || ''}
-              onChange={handleClientInfoChange}
-              placeholder="Areas of work interest (optional)"
-            />
-            {extractedFields.jobInterests && <div className="extracted-indicator">Auto-extracted</div>}
-          </div>
-          <div className={`form-group ${extractedFields.skillLevel ? 'field-extracted' : ''}`}>
-            <label htmlFor="skillLevel">Skill Level:</label>
-            <select
-              id="skillLevel"
-              name="skillLevel"
-              value={clientInfo.skillLevel || ''}
-              onChange={handleClientInfoChange}
-              title="The client's current level of skills related to employment and workplace readiness"
-            >
-              <option value="">Select a level</option>
-              <option value="Beginner">Beginner - Limited work experience or skills</option>
-              <option value="Intermediate">Intermediate - Some work experience and basic skills</option>
-              <option value="Advanced">Advanced - Significant work experience or specialized skills</option>
-            </select>
-            {extractedFields.skillLevel && <div className="extracted-indicator">Auto-extracted</div>}
-          </div>
-          <div className="form-actions">
-            <button type="submit" className="submit-info-button">Save Information</button>
-            <button type="button" className="cancel-button" onClick={() => setShowClientForm(false)}>Cancel</button>
-          </div>
-        </form>
-      </section>
-    );
-  };
-
   return (
     <div className="azure-doc-chat-container">
       {/* Header */}
@@ -888,18 +625,12 @@ const AzureDocChat = () => {
         <p>
           Hi, Coach! Upload a document.
           I'll analyze it and create audio and braille versions for your sessions.
-          I'll send everything to your email, ready to use.
           Questions? Just ask me, I'm here to help!
         </p>
       </section>
 
-      {/* Client Information Form (conditionally rendered) */}
-      {showClientForm && renderEnhancedClientForm()}
-
       {/* Chat Section */}
       <section className="chat-section">
-        {renderClientInfoIndicator()}
-        
         <div className="action-buttons">
           <div className="file-upload-container">
             <input
@@ -923,24 +654,6 @@ const AzureDocChat = () => {
               <div className="upload-status error">Error uploading document</div>
             )}
           </div>
-          
-          <button 
-            className="send-emails-button" 
-            onClick={handleSendEmails}
-            disabled={loading || messages.length === 0}
-          >
-            Send via email
-          </button>
-          
-          {!showClientForm && (
-            <button 
-              className="client-info-button" 
-              onClick={() => setShowClientForm(true)}
-              disabled={loading}
-            >
-              Client information
-            </button>
-          )}
         </div>
 
         {/* List of uploaded files */}
