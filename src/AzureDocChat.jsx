@@ -348,7 +348,7 @@ const AzureDocChat = () => {
     if (messages.length === 0) {
       setMessages([{
         role: 'assistant',
-        content: "Welcome, Coach! I'm here to help you create personalized training plans for your clients with disabilities. Upload a training document or employment material, and I'll analyze it to create accessible versions. I can also answer questions about best practices in job training and accessibility based on my knowledge base. How can I assist you today?"
+        content: "Welcome, Coach! I'm here to help you create personalized training plans for your clients with disabilities. Upload a training document or employment material, and I'll analyze it to create accessible versions. I can also answer questions about the best practices in job training and accessibility based on my knowledge base. How can I assist you today?"
       }]);
     }
   }, []);
