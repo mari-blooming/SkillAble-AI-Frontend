@@ -1,5 +1,7 @@
 # SkillAble AI - Setup Guide
 
+![SkillAble AI Logo and Header](./public/1.png)
+
 SkillAble AI is a React application that helps job coaches work with clients who have disabilities. This guide will help you set up and deploy the application.
 
 ## Table of Contents
@@ -102,16 +104,25 @@ For complete backend documentation and setup instructions, visit:
 SkillAble AI provides a comprehensive set of tools designed to help job coaches work more effectively with clients who have disabilities. The application offers the following key features:
 
 ### Intelligent Assistant for Job Coaches
+
+![SkillAble AI Chat Interface](./public/2.png)
+
 - **AI-Powered Support**: Specialized AI assistant that understands supported employment practices and disability accommodation needs
 - **Context-Aware Conversations**: The system tracks client information and provides personalized guidance based on specific client needs
 - **Targeted Follow-Up Questions**: Automatically identifies missing information and asks relevant questions to gather complete client profiles
 
 ### Document Management and Accessibility
+
+![Braille Translation](./public/3.png)
+
 - **Document Upload**: Support for PDF, DOC, DOCX, and TXT file formats
 - **Accessible Document Creation**: Automatically analyzes training materials and employment documents to create accessible versions
 - **Braille and Audio Conversion**: Converts uploaded materials into formats suitable for clients with visual impairments
 
 ### Client Information Management
+
+![Client Information Gathering](./public/5.png)
+
 - **Automatic Client Profile Creation**: Extracts and organizes client information from conversations
 - **Client Details Tracking**: Maintains profiles including:
   - Disability type and specific needs
@@ -121,11 +132,17 @@ SkillAble AI provides a comprehensive set of tools designed to help job coaches 
   - Employment history and preferences
 
 ### Personalized Employment Support
+
+![Email Notification with Accessible Documents](./public/4.png)
+
 - **Tailored Recommendations**: Provides specific, actionable advice based on individual client circumstances
 - **Disability-Specific Guidance**: Offers accommodation suggestions and strategies appropriate for different disabilities
 - **Job Matching Assistance**: Helps identify suitable employment opportunities based on client strengths and limitations
 
 ### Workflow Optimization
+
+![Personalized Coaching Advice](./public/6.png)
+
 - **Progress Tracking**: Monitors client development and training milestones
 - **Resource Suggestions**: Recommends relevant tools, techniques, and materials based on client needs
 - **Time-Saving Automation**: Reduces administrative tasks through intelligent document handling and information extraction
@@ -242,6 +259,13 @@ To allow the application to upload files to Azure Blob Storage from your local d
 - **CORS issues**: If you encounter CORS errors, verify your CORS settings in Azure Blob Storage and ensure all origins, methods, and headers are properly configured.
 - **Storage access issues**: Verify that your SAS token is valid and has the necessary permissions.
 - **OpenAI API issues**: Check that your Azure OpenAI service is properly provisioned and that your deployment is active.
+
+## Additional Resources
+
+- [Azure OpenAI Documentation](https://learn.microsoft.com/en-us/azure/cognitive-services/openai/)
+- [Azure Blob Storage Documentation](https://learn.microsoft.com/en-us/azure/storage/blobs/)
+- [React Documentation](https://reactjs.org/docs/getting-started.html)
+- [Azure Web Apps Documentation](https://learn.microsoft.com/en-us/azure/app-service/)
 
 ## Additional Resources
 
