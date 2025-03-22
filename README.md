@@ -260,6 +260,20 @@ To allow the application to upload files to Azure Blob Storage from your local d
 - **Storage access issues**: Verify that your SAS token is valid and has the necessary permissions.
 - **OpenAI API issues**: Check that your Azure OpenAI service is properly provisioned and that your deployment is active.
 
+## Our Team
+
+### Cristopher Hugo Olivares Del Real
+* LinkedIn: [https://www.linkedin.com/in/cristopher-olivares/](https://www.linkedin.com/in/cristopher-olivares/)
+* GitHub: [https://github.com/crissins](https://github.com/crissins)
+
+### María Fernanda Mena Altamirano
+* LinkedIn: [https://www.linkedin.com/in/maria-mena-altamirano](https://www.linkedin.com/in/maria-mena-altamirano)
+* GitHub: [https://github.com/mari-blooming](https://github.com/mari-blooming)
+
+### Yrvin Narro Lucano
+* LinkedIn: [https://www.linkedin.com/in/yrvin-narro](https://www.linkedin.com/in/yrvin-narro)
+* GitHub: [https://github.com/yrvinnl](https://github.com/yrvinnl)
+
 ## Additional Resources
 
 - [Azure OpenAI Documentation](https://learn.microsoft.com/en-us/azure/cognitive-services/openai/)
